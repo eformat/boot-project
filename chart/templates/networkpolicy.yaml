@@ -1,0 +1,41 @@
+{{- if .Values.namespaces }}
+{{- range $ns :=.Values.namespaces }}
+{{- if $ns.enabled }}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: deny-by-default
+  namespace: {{ .name }}
+spec:
+  podSelector:
+  ingress: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-openshift-ingress
+  namespace: {{ .name }}
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          network.openshift.io/policy-group: ingress
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-same-namespace
+  namespace: {{ .name }}
+spec:
+  podSelector: {}
+  ingress:
+  - from:
+    - podSelector: {}
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,35 @@
+# see boot-project-values git repo for filled in examples of these
+namespaces:
+  - name: my-project
+    enabled: false
+    labels:
+      appId: ""
+      techArea: ""
+      egressIp: ""
+      owner: ""
+      slaTier: ""
+      drRating: ""
+      comments: ""
+    bindings:
+      - name: my-project-admin
+        kind: Group
+        role: admin
+        roleType: ClusterRole
+      - name: my-project-edit
+        kind: Group
+        role: edit
+        roleType: ClusterRole
+      - name: my-project-view
+        kind: Group
+        role: view
+        roleType: ClusterRole
+    operatorgroup: false
+    resourceQuota:
+      hard:
+        limits.memory: ""
+        requests.cpu: ""
+        requests.memory: ""
+        persistentvolumeclaims: ""
+        requests.storage: ""
+    egressIps:
+      - 192.168.0.100

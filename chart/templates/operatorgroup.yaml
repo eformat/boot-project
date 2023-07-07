@@ -1,0 +1,17 @@
+{{- if .Values.namespaces }}
+{{- range $ns := .Values.namespaces }}
+{{- if $ns.enabled }}
+{{- if .operatorgroup }}
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: {{ .name }}-og
+  namespace: {{ .name | quote }}
+spec:
+  targetNamespaces: 
+  - {{ .name }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

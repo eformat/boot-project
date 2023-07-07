@@ -1,0 +1,36 @@
+{{- if .Values.namespaces }}
+{{- range $ns :=.Values.namespaces }}
+{{- if $ns.enabled }}
+{{- if .bindings }}
+---
+apiVersion: v1
+kind: List
+metadata:
+  name: {{ .name }}-rb-list
+  annotations:
+    "helm.sh/hook": post-install
+items:
+{{- range $b := .bindings }}
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    name: "{{ $b.name }}-{{ $b.role }}-role"
+    namespace: {{ $ns.name }}
+  roleRef:
+    name: "{{ $b.role }}"
+    apiGroup: rbac.authorization.k8s.io
+    kind: {{ $b.roleType }}
+  subjects:
+  - kind: "{{ $b.kind }}"
+    name: "{{ $b.name }}"
+{{- if ne (lower $b.kind) "serviceaccount" }}
+    apiGroup: "rbac.authorization.k8s.io"
+{{- end }}
+{{- if $b.namespace }}
+    namespace: "{{ printf "%s" $b.namespace }}"
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

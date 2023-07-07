@@ -1,0 +1,16 @@
+{{- if .Values.namespaces }}
+{{- range $ns := .Values.namespaces }}
+{{- if $ns.enabled }}
+{{- if .resourceQuota }}
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{ .name }}
+  namespace: {{ .name }}
+spec:
+{{- toYaml .resourceQuota | nindent 2 }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

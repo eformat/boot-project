@@ -1,0 +1,20 @@
+{{- if .Values.namespaces }}
+{{- range $ns :=.Values.namespaces }}
+{{- if $ns.enabled }}
+{{- if .egressIps }}
+---
+apiVersion: k8s.ovn.org/v1
+kind: EgressIP
+metadata:
+  name: {{ .name }}
+  namespace: {{ .name }}
+spec:
+  egressIPs:
+{{- toYaml .egressIps | nindent 2 }}
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: {{ .name }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
