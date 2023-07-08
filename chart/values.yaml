@@ -1,6 +1,8 @@
 # see boot-project-values git repo for filled in examples of these
 namespaces:
   - name: my-project
+    displayName: ""
+    description: ""
     enabled: false
     labels:
       appId: ""
