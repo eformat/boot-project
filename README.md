@@ -20,7 +20,7 @@ Group Role Bindings
 
 Best practices for CPU limits and requests on Kubernetes
 
--- https://home.robusta.dev/blog/stop-using-cpu-limits
+- https://home.robusta.dev/blog/stop-using-cpu-limits
 
 Setting a hard resource quota at the Project scope ensures that all workloads within this namespace will need to set these limits and requests less than the hard quota to be scheduled.
 
