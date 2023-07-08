@@ -8,7 +8,7 @@ metadata:
   name: deny-by-default
   namespace: {{ .name }}
 spec:
-  podSelector:
+  podSelector: {}
   ingress: []
 ---
 apiVersion: networking.k8s.io/v1
