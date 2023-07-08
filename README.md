@@ -29,7 +29,7 @@ Best practices for CPU limits and requests on Kubernetes
 
 Setting a hard resource quota at the Project scope ensures that all workloads within this namespace will need to set these limits and requests less than the hard quota to be scheduled.
 
-1. Use CPU requests for everything (if you need help setting them, see KRR)
+1. Use CPU requests for everything
 2. Make sure they are accurate
 3. Do not use CPU limits.
 
